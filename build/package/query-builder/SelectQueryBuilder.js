@@ -1151,6 +1151,12 @@ class SelectQueryBuilder extends QueryBuilder_1.QueryBuilder {
             return this.createJoinTreeRecursivly(joinTreeChild);
         })
             .join(" ");
+        const resolvedChildJoinAttributesPrefix = resolvedChildJoinAttributes
+            ? "( "
+            : "";
+        const resolvedChildJoinAttributesPostfix = resolvedChildJoinAttributes
+            ? " )"
+            : "";
         // if join was build without relation (e.g. without "post.category") then it means that we have direct
         // table to join, without junction table involved. This means we simply join direct table.
         if (!parentAlias || !relation) {
@@ -1160,10 +1166,12 @@ class SelectQueryBuilder extends QueryBuilder_1.QueryBuilder {
             return (" " +
                 joinAttr.direction +
                 " JOIN " +
+                resolvedChildJoinAttributesPrefix +
                 destinationJoin +
                 " " +
                 this.escape(destinationTableAlias) +
                 resolvedChildJoinAttributes +
+                resolvedChildJoinAttributesPostfix +
                 " " +
                 this.createTableLockExpression() +
                 (joinAttr.condition
@@ -1189,10 +1197,12 @@ class SelectQueryBuilder extends QueryBuilder_1.QueryBuilder {
             return (" " +
                 joinAttr.direction +
                 " JOIN " +
+                resolvedChildJoinAttributesPrefix +
                 this.getTableName(destinationTableName) +
                 " " +
                 this.escape(destinationTableAlias) +
                 resolvedChildJoinAttributes +
+                resolvedChildJoinAttributesPostfix +
                 " " +
                 this.createTableLockExpression() +
                 " ON " +
@@ -1231,10 +1241,12 @@ class SelectQueryBuilder extends QueryBuilder_1.QueryBuilder {
             return (" " +
                 joinAttr.direction +
                 " JOIN " +
+                resolvedChildJoinAttributesPrefix +
                 this.getTableName(destinationTableName) +
                 " " +
                 this.escape(destinationTableAlias) +
                 resolvedChildJoinAttributes +
+                resolvedChildJoinAttributesPostfix +
                 " " +
                 this.createTableLockExpression() +
                 " ON " +
@@ -1309,10 +1321,12 @@ class SelectQueryBuilder extends QueryBuilder_1.QueryBuilder {
                 " " +
                 joinAttr.direction +
                 " JOIN " +
+                resolvedChildJoinAttributesPrefix +
                 this.getTableName(destinationTableName) +
                 " " +
                 this.escape(destinationTableAlias) +
                 resolvedChildJoinAttributes +
+                resolvedChildJoinAttributesPostfix +
                 " " +
                 this.createTableLockExpression() +
                 " ON " +
